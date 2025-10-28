@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre el Proyecto</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+        }
+        
+        h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        h2 {
+            color: #764ba2;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        p {
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        
+        ul {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+            color: #555;
+        }
+        
+        .highlight {
+            background: #f0f4ff;
+            padding: 20px;
+            border-left: 4px solid #667eea;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .tech-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            color: #667eea;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        
+        .warning-box strong {
+            color: #856404;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📖 Sobre el Proyecto</h1>
+        
+        <div class="highlight">
+            <h2 style="border: none; margin-top: 0;">🎯 Objetivo</h2>
+            <p>
+                Este proyecto utiliza <strong>Machine Learning ético</strong> para identificar personas 
+                en riesgo de bajos ingresos persistentes (≤50K USD/año) y proponer 
+                <strong>intervenciones personalizadas de inclusión social</strong> basadas en datos.
+            </p>
+        </div>
+        
+        <h2>📊 Dataset</h2>
+        <p>
+            <strong>Adult Income Dataset</strong> del UCI Machine Learning Repository
+        </p>
+        <ul>
+            <li>32,561 registros de censo poblacional (EE.UU., 1994)</li>
+            <li>15 variables socioeconómicas (edad, educación, ocupación, género, etc.)</li>
+            <li>Variable objetivo: Ingresos ≤50K vs >50K USD/año</li>
+            <li>Licencia: CC BY 4.0 (uso libre con atribución)</li>
+        </ul>
+        
+        <h2>🤖 Modelo de Machine Learning</h2>
+        <p>
+            Se compararon 3 algoritmos y se seleccionó el mejor según AUC-ROC:
+        </p>
+        <ul>
+            <li><strong>Logistic Regression</strong> (baseline interpretable)</li>
+            <li><strong>Random Forest</strong> (ensemble robusto)</li>
+            <li><strong>Gradient Boosting</strong> ⭐ (máximo rendimiento - seleccionado)</li>
+        </ul>
+        
+        <div class="highlight">
+            <strong>Métricas del modelo:</strong>
+            <ul style="margin-top: 10px;">
+                <li>AUC-ROC: Capacidad de discriminar entre clases</li>
+                <li>F1-Score weighted: Balance precision-recall (clases desbalanceadas)</li>
+                <li>Fairness metrics: TPR, FPR, Demographic Parity por género/edad/ocupación</li>
+            </ul>
+        </div>
+        
+        <h2>🧠 Mock de LLM</h2>
+        <p>
+            La aplicación incluye un <strong>Mock (simulación) de Large Language Model</strong> que:
+        </p>
+        <ul>
+            <li>Genera plantilla de prompt con variables parametrizadas</li>
+            <li>Simula respuesta personalizada según perfil del usuario</li>
+            <li>Propone intervenciones concretas (becas, formación, mentoría)</li>
+            <li>Incluye recursos reales (enlaces a programas existentes)</li>
+        </ul>
+        <p>
+            ⚠️ <strong>Nota:</strong> No conecta con OpenAI/Anthropic API. La respuesta está generada 
+            por reglas Python. En producción, se reemplazaría con llamada real a LLM.
+        </p>
+        
+        <h2>🔧 Stack Tecnológico</h2>
+        <div class="tech-stack">
+            <div class="tech-item">Python 3.13</div>
+            <div class="tech-item">Flask</div>
+            <div class="tech-item">scikit-learn</div>
+            <div class="tech-item">pandas/numpy</div>
+            <div class="tech-item">joblib</div>
+            <div class="tech-item">HTML/CSS</div>
+        </div>
+        
+        <h2>✅ Análisis de Fairness (Equidad Algorítmica)</h2>
+        <p>
+            El proyecto incluye análisis exhaustivo de sesgos:
+        </p>
+        <ul>
+            <li><strong>Brecha de género:</strong> TPR (True Positive Rate) menor para mujeres</li>
+            <li><strong>Discriminación etaria:</strong> Personas >60 años penalizadas</li>
+            <li><strong>Segregación ocupacional:</strong> Sectores Manual/Service con menor TPR</li>
+        </ul>
+        
+        <div class="warning-box">
+            <strong>⚠️ ADVERTENCIA ÉTICA:</strong><br><br>
+            Este modelo tiene sesgos detectados. <strong>NO debe usarse para decisiones 
+            automatizadas sin revisión humana.</strong> Los sesgos reflejan discriminación 
+            histórica en el mercado laboral (no son "culpa" del modelo, sino de los datos).
+            <br><br>
+            <strong>Mitigación propuesta:</strong> Re-weighting, threshold optimization, auditoría ética externa.
+        </div>
+        
+        <h2>📚 Características del Proyecto</h2>
+        <ul>
+            <li>✅ EDA completo con storytelling (5 visualizaciones narrativas)</li>
+            <li>✅ Pipeline de limpieza de datos (10 pasos documentados)</li>
+            <li>✅ Comparación de 3 modelos ML con métricas justificadas</li>
+            <li>✅ Feature importance (explicabilidad del modelo)</li>
+            <li>✅ Fairness analysis (equidad por género, edad, ocupación)</li>
+            <li>✅ Sistema de recomendaciones personalizadas</li>
+            <li>✅ A/B Testing simulado (evaluación de impacto)</li>
+            <li>✅ Mock LLM con plantilla de prompt</li>
+            <li>✅ Aplicación web interactiva (Flask)</li>
+            <li>✅ Modelo guardado (joblib) para reutilización</li>
+            <li>✅ README completo con troubleshooting</li>
+        </ul>
+        
+        <h2>🚀 Uso en Producción</h2>
+        <p>
+            Este proyecto es una <strong>prueba de concepto</strong>. Para llevarlo a producción:
+        </p>
+        <ul>
+            <li>Conectar con API real de LLM (OpenAI, Anthropic, Gemini)</li>
+            <li>Actualizar modelo con datos recientes (dataset es de 1994)</li>
+            <li>Implementar mitigación de sesgos</li>
+            <li>Agregar base de datos para persistencia</li>
+            <li>Auditoría ética externa obligatoria</li>
+            <li>Sistema de apelación para decisiones</li>
+            <li>Monitoreo continuo de métricas de fairness</li>
+        </ul>
+        
+        <h2>👥 Desarrollado por</h2>
+        <p>
+            Proyecto académico para demostrar habilidades en:
+        </p>
+        <ul>
+            <li>Data Science & Machine Learning</li>
+            <li>Ethical AI & Fairness Analysis</li>
+            <li>Storytelling con datos</li>
+            <li>Desarrollo web (Flask)</li>
+            <li>Integración ML + LLM (mock)</li>
+        </ul>
+        
+        <div style="text-align: center;">
+            <a href="/" class="btn">🏠 Volver al Inicio</a>
+            <a href="https://github.com/DarthVada36/somos-f5-social" target="_blank" class="btn" style="background: #333;">
+                💻 Ver en GitHub
+            </a>
+        </div>
+        
+        <footer>
+            <p>✨ Proyecto de Inclusión Económica con IA Ética</p>
+            <p style="margin-top: 5px; font-size: 0.9em;">
+                Dataset: UCI ML Repository | Licencia: MIT
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
