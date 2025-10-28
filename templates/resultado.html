@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado del Análisis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        
+        .perfil-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .perfil-card h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .perfil-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .perfil-item {
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 3px solid #667eea;
+        }
+        
+        .perfil-item strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .resultado-principal {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .resultado-principal h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        
+        .probabilidades {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        
+        .prob-card {
+            background: rgba(255,255,255,0.2);
+            padding: 20px;
+            border-radius: 10px;
+            flex: 1;
+            margin: 0 10px;
+        }
+        
+        .prob-card h3 {
+            font-size: 2.5em;
+            margin-bottom: 5px;
+        }
+        
+        .riesgo-badge {
+            display: inline-block;
+            padding: 10px 30px;
+            border-radius: 25px;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        
+        .riesgo-badge.danger {
+            background: #dc3545;
+        }
+        
+        .riesgo-badge.warning {
+            background: #ffc107;
+            color: #333;
+        }
+        
+        .riesgo-badge.success {
+            background: #28a745;
+        }
+        
+        .seccion {
+            margin-bottom: 40px;
+        }
+        
+        .seccion h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .prompt-box {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            max-height: 400px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            color: #333;
+        }
+        
+        /* Estilo chatbot */
+        .chat-container {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .chat-message {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .chat-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            flex-shrink: 0;
+        }
+        
+        .user-avatar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .bot-avatar {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+        
+        .chat-bubble {
+            flex: 1;
+            padding: 15px 20px;
+            border-radius: 15px;
+            line-height: 1.6;
+        }
+        
+        .user-bubble {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-bottom-left-radius: 5px;
+        }
+        
+        .bot-bubble {
+            background: white;
+            color: #333;
+            border: 2px solid #e0e0e0;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .bot-bubble h3 {
+            color: #11998e;
+            font-size: 1.1em;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .bot-bubble h4 {
+            color: #667eea;
+            font-size: 1em;
+            margin-top: 12px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .bot-bubble ul {
+            margin: 10px 0 10px 20px;
+            padding-left: 10px;
+        }
+        
+        .bot-bubble li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        .bot-bubble strong {
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        .bot-bubble a {
+            color: #11998e;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .bot-bubble a:hover {
+            text-decoration: underline;
+        }
+        
+        .bot-bubble p {
+            margin: 10px 0;
+        }
+        
+        .bot-bubble hr {
+            border: none;
+            border-top: 2px solid #e0e0e0;
+            margin: 15px 0;
+        }
+        
+        .typing-indicator {
+            display: flex;
+            gap: 5px;
+            padding: 10px;
+        }
+        
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background: #999;
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+        
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 40px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            text-align: center;
+            display: block;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .note strong {
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Resultado del Análisis</h1>
+        </header>
+        
+        <!-- Perfil del usuario -->
+        <div class="perfil-card">
+            <h3>👤 Perfil Analizado</h3>
+            <div class="perfil-grid">
+                <div class="perfil-item">
+                    <strong>Edad</strong>
+                    {{ resultado.perfil.edad }} años
+                </div>
+                <div class="perfil-item">
+                    <strong>Género</strong>
+                    {{ resultado.perfil.genero }}
+                </div>
+                <div class="perfil-item">
+                    <strong>Educación</strong>
+                    {{ resultado.perfil.educacion }} años
+                </div>
+                <div class="perfil-item">
+                    <strong>Ocupación</strong>
+                    {{ resultado.perfil.ocupacion }}
+                </div>
+                <div class="perfil-item">
+                    <strong>Horas/semana</strong>
+                    {{ resultado.perfil.horas }}h
+                </div>
+            </div>
+        </div>
+        
+        <!-- Resultado principal -->
+        <div class="resultado-principal">
+            <h2>🎯 Predicción del Modelo</h2>
+            <p style="font-size: 1.3em;">{{ resultado.prediccion }}</p>
+            
+            <div class="probabilidades">
+                <div class="prob-card">
+                    <div>Probabilidad Bajos Ingresos</div>
+                    <h3>{{ resultado.prob_bajo }}%</h3>
+                </div>
+                <div class="prob-card">
+                    <div>Probabilidad Altos Ingresos</div>
+                    <h3>{{ resultado.prob_alto }}%</h3>
+                </div>
+            </div>
+            
+            <div class="riesgo-badge {{ resultado.color_riesgo }}">
+                {% if resultado.nivel_riesgo == 'ALTO' %}
+                    🔴 RIESGO ALTO
+                {% elif resultado.nivel_riesgo == 'MEDIO' %}
+                    🟡 RIESGO MEDIO
+                {% else %}
+                    🟢 RIESGO BAJO
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Respuesta simulada del LLM -->
+        <div class="seccion">
+            {% if resultado.usando_api_real %}
+                <h2>💬 Conversación con Groq LLM (API Real)</h2>
+                <div class="note" style="background: #d4edda; border-color: #28a745;">
+                    <strong>✅ LLM Real:</strong> Esta respuesta fue generada por <strong>Groq API</strong> 
+                    (llama-3.3-70b-versatile) en tiempo real.
+                </div>
+            {% else %}
+                <h2>💬 Conversación con Asistente IA</h2>
+                <div class="note">
+                    <strong>ℹ️ Modo:</strong> Respuestas generadas con lógica personalizada. 
+                    Para usar Groq API real, configura <code>GROQ_API_KEY</code> en .env
+                </div>
+            {% endif %}
+            
+            <!-- Chat Container -->
+            <div class="chat-container">
+                <!-- Mensaje del Usuario -->
+                <div class="chat-message">
+                    <div class="chat-avatar user-avatar">👤</div>
+                    <div class="chat-bubble user-bubble">
+                        <div><strong>Tú:</strong></div>
+                        <p style="margin-top: 10px;">Analiza mi perfil y dame recomendaciones personalizadas para mejorar mi situación económica.</p>
+                        <div style="margin-top: 10px; font-size: 0.9em; opacity: 0.9;">
+                            📊 Edad: {{ resultado.perfil.edad }} años | 
+                            🎓 Educación: {{ resultado.perfil.educacion }} años | 
+                            💼 Sector: {{ resultado.perfil.ocupacion }} | 
+                            ⏰ Horas: {{ resultado.perfil.horas }}h/semana
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mensaje del Bot -->
+                <div class="chat-message">
+                    <div class="chat-avatar bot-avatar">🤖</div>
+                    <div class="chat-bubble bot-bubble">
+                        <div style="color: #11998e; font-weight: 600; margin-bottom: 10px;">
+                            {% if resultado.usando_api_real %}
+                                Groq AI (llama-3.3-70b):
+                            {% else %}
+                                Asistente IA:
+                            {% endif %}
+                        </div>
+                        {{ resultado.respuesta_llm | safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botones de acción -->
+        <div class="btn-group">
+            <a href="/" class="btn btn-primary">🔄 Nuevo Análisis</a>
+            <a href="/sobre" class="btn btn-secondary">📖 Sobre el Proyecto</a>
+        </div>
+    </div>
+</body>
+</html>
