@@ -1,4 +1,20 @@
-# 🤖 Proyecto de Inclusión Económica: Predicción de Bajos Ingresos
+# Proyecto de Inclusión Económica: Predicción de Bajos Ingresos
+
+## 🌍 Introducción
+
+A veces, los datos antiguos nos hablan de problemas muy actuales.
+El Adult Income Dataset —registrado en 1994— refleja una sociedad donde factores como el género, la educación o el tipo de trabajo determinaban el acceso a mejores ingresos.
+Han pasado más de 30 años, pero las desigualdades que muestra no pertenecen solo al pasado: aún se repiten en distintas formas y rincones del mundo.
+
+Este proyecto, “Explorador de Sesgos: Predicción de Bajos Ingresos”, nace con un propósito doble:
+enseñar cómo aplicar Machine Learning ético y, al mismo tiempo, invitar a reflexionar sobre la justicia social en los datos.
+
+Inspirado por la misión de Somos F5, busca demostrar que la Inteligencia Artificial tiene sentido solo cuando amplía las oportunidades de quienes históricamente han tenido menos acceso al mundo digital.
+
+A través del análisis de este dataset, propongo no solo predecir quiénes podrían estar en riesgo de bajos ingresos, sino también imaginar cómo la formación, la educación y el acompañamiento pueden cambiar esas trayectorias.
+Porque el aprendizaje —cuando se da con propósito— puede ser la herramienta más poderosa para cerrar brechas y abrir futuros.
+
+
 
 [![Python](https://img.shields.io/badge/Python-3.13+-blue.svg)](https://www.python.org/)
 [![scikit-learn](https://img.shields.io/badge/scikit--learn-1.5.2-orange.svg)](https://scikit-learn.org/)
