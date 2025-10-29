@@ -68,6 +68,7 @@ Este proyecto utiliza **Machine Learning ético** para identificar personas en r
 - Python 3.11 o superior
 - pip (gestor de paquetes)
 - Git
+- [Dataset y modelos](https://drive.google.com/drive/folders/18sHN9cfRIVyeIsLApy1SSzLycMCkmXxB?usp=sharing)  
 
 ### Pasos de instalación
 
